@@ -1,0 +1,18 @@
+# Reference-page shortcuts, grouped by which script creates them.
+# scope: base -> Desktop root. scope: programming/mechanical -> Desktop\FRC_Setup\<scope>\
+shortcuts:
+  - scope: base
+    name: FRC Resources
+    url: https://www.firstinspires.org/robotics/frc/resources
+  - scope: base
+    name: Team Website
+    url: https://TODO-team-website.example.com # TODO: replace with actual team site
+  - scope: programming
+    name: WPILib Docs
+    url: https://docs.wpilib.org/
+  - scope: programming
+    name: Team GitHub
+    url: https://github.com/TODO-team-org # TODO: replace with actual team GitHub org/repo
+  - scope: mechanical
+    name: OnShape
+    url: https://cad.onshape.com/

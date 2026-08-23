@@ -1,0 +1,14 @@
+# Software installed on every FRC laptop, regardless of sub-team.
+apps:
+  - id: Mozilla.Firefox
+    name: Firefox
+  - id: BraveSoftware.BraveBrowser
+    name: Brave
+  - id: 7zip.7zip
+    name: 7-Zip
+
+# Firefox Enterprise policy: force-install uBlock Origin as a managed extension.
+firefoxPolicies:
+  extensionId: uBlock0@raymondhill.net
+  installUrl: https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi
+  installationMode: force_installed

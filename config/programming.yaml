@@ -1,0 +1,14 @@
+# Software for the combined Programming/Electrical team.
+# WPILib itself is NOT listed here -- it is fetched separately since it always
+# needs the latest yearly release (see Setup-Programming.ps1).
+apps:
+  - id: Git.Git
+    name: Git
+  - id: GitHub.GitHubDesktop
+    name: GitHub Desktop
+  - id: Python.Python.3.12
+    name: Python
+
+wpilib:
+  latestReleaseApiUrl: https://api.github.com/repos/wpilibsuite/allwpilib/releases/latest
+

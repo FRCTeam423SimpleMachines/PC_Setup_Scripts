@@ -1,0 +1,6 @@
+# Software for the Mechanical/CAD team.
+# OnShape is a web app (no installer needed -- see shortcuts.yaml for the link).
+# CAM software list is still undecided -- add winget {id, name} entries below once chosen.
+apps: []
+  # - id: TODO
+  #   name: TODO CAM software
