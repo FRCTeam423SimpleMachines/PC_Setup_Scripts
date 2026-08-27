@@ -26,25 +26,40 @@ New-DesktopShortcutsForScope -ShortcutsYamlPath (Join-Path $repoRoot 'config\sho
 # --- Firefox: force-install uBlock Origin via Enterprise policy ---------------
 $firefoxPolicy = $baseConfig.firefoxPolicies
 if ($firefoxPolicy) {
-    $distDir = 'C:\Program Files\Mozilla Firefox\distribution'
-    if (-not (Test-Path $distDir)) {
-        New-Item -ItemType Directory -Path $distDir -Force | Out-Null
+    # Wait for Firefox installation to complete
+    $firefoxExe = 'C:\Program Files\Mozilla Firefox\firefox.exe'
+    $maxWaitSeconds = 60
+    $waited = 0
+
+    while (-not (Test-Path $firefoxExe) -and $waited -lt $maxWaitSeconds) {
+        Write-Log "Waiting for Firefox installation to complete..."
+        Start-Sleep -Seconds 5
+        $waited += 5
     }
 
-    $policy = @{
-        policies = @{
-            ExtensionSettings = @{
-                $firefoxPolicy.extensionId = @{
-                    installation_mode = $firefoxPolicy.installationMode
-                    install_url       = $firefoxPolicy.installUrl
+    if (Test-Path $firefoxExe) {
+        $distDir = 'C:\Program Files\Mozilla Firefox\distribution'
+        if (-not (Test-Path $distDir)) {
+            New-Item -ItemType Directory -Path $distDir -Force | Out-Null
+        }
+
+        $policy = @{
+            policies = @{
+                ExtensionSettings = @{
+                    $firefoxPolicy.extensionId = @{
+                        installation_mode = $firefoxPolicy.installationMode
+                        install_url       = $firefoxPolicy.installUrl
+                    }
                 }
             }
         }
-    }
 
-    $policyPath = Join-Path $distDir 'policies.json'
-    $policy | ConvertTo-Json -Depth 6 | Set-Content -Path $policyPath -Encoding UTF8
-    Write-Log "Wrote Firefox policy for $($firefoxPolicy.extensionId) to $policyPath"
+        $policyPath = Join-Path $distDir 'policies.json'
+        $policy | ConvertTo-Json -Depth 6 | Set-Content -Path $policyPath -Encoding UTF8
+        Write-Log "Wrote Firefox policy for $($firefoxPolicy.extensionId) to $policyPath"
+    } else {
+        Write-Log -Level WARN -Message "Firefox installation did not complete within $maxWaitSeconds seconds. Skipping policy setup."
+    }
 } else {
     Write-Log -Level WARN -Message 'No firefoxPolicies section found in base.yaml; skipping uBlock Origin setup.'
 }

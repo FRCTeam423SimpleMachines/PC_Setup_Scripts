@@ -2,7 +2,7 @@
 apps:
   - id: Mozilla.Firefox
     name: Firefox
-  - id: BraveSoftware.BraveBrowser
+  - id: Brave.Brave
     name: Brave
   - id: 7zip.7zip
     name: 7-Zip
