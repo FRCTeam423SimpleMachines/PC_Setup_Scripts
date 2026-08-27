@@ -56,11 +56,14 @@ New-Item -ItemType Directory -Path (Join-Path $desktopSetupDir 'scripts\common')
 New-Item -ItemType Directory -Path (Join-Path $desktopSetupDir 'config') -Force | Out-Null
 
 Copy-Item -Path (Join-Path $repoRoot 'scripts\Setup-Programming.ps1') -Destination (Join-Path $desktopSetupDir 'scripts') -Force
+Copy-Item -Path (Join-Path $repoRoot 'scripts\Setup-Programming.cmd') -Destination (Join-Path $desktopSetupDir 'scripts') -Force
 Copy-Item -Path (Join-Path $repoRoot 'scripts\Setup-Mechanical.ps1') -Destination (Join-Path $desktopSetupDir 'scripts') -Force
+Copy-Item -Path (Join-Path $repoRoot 'scripts\Setup-Mechanical.cmd') -Destination (Join-Path $desktopSetupDir 'scripts') -Force
 Copy-Item -Path (Join-Path $repoRoot 'scripts\common\Install-Helpers.ps1') -Destination (Join-Path $desktopSetupDir 'scripts\common') -Force
 Copy-Item -Path (Join-Path $repoRoot 'config\programming.yaml') -Destination (Join-Path $desktopSetupDir 'config') -Force
 Copy-Item -Path (Join-Path $repoRoot 'config\mechanical.yaml') -Destination (Join-Path $desktopSetupDir 'config') -Force
 Copy-Item -Path (Join-Path $repoRoot 'config\shortcuts.yaml') -Destination (Join-Path $desktopSetupDir 'config') -Force
 
 Write-Log 'Base setup complete.'
-Write-Log "Sub-team scripts are available at $desktopSetupDir\scripts. Run Setup-Programming.ps1 or Setup-Mechanical.ps1 from there as needed."
+Write-Log "Sub-team scripts are available at $desktopSetupDir\scripts."
+Write-Log "Students can double-click Setup-Programming.cmd or Setup-Mechanical.cmd to install team-specific software."

@@ -45,12 +45,11 @@ function Install-WingetApp {
 
     Write-Log "Installing $Name ($Id)..."
     try {
-        winget install --id $Id -e --silent --accept-package-agreements --accept-source-agreements
+        winget install --id $Id -e --silent --source winget --accept-package-agreements --accept-source-agreements
         if ($LASTEXITCODE -eq 0) {
             Write-Log "$Name installed successfully."
         } else {
-            # Non-zero can mean "already installed" -- don't treat as fatal.
-            Write-Log -Level WARN -Message "winget exited with code $LASTEXITCODE while installing $Name."
+            Write-Log -Level WARN -Message "winget exited with code $LASTEXITCODE while installing $Name (may already be installed)."
         }
     } catch {
         Write-Log -Level ERROR -Message "Failed to install $Name : $_"
@@ -60,7 +59,11 @@ function Install-WingetApp {
 function Initialize-PowerShellYaml {
     if (-not (Get-Module -ListAvailable -Name powershell-yaml)) {
         Write-Log 'Installing powershell-yaml module...'
-        Install-Module -Name powershell-yaml -Scope CurrentUser -Force -Repository PSGallery
+        if (-not (Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction SilentlyContinue)) {
+            Write-Log 'Installing NuGet package provider...'
+            Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser | Out-Null
+        }
+        Install-Module -Name powershell-yaml -Scope CurrentUser -Force -Repository PSGallery -AllowClobber
     }
     Import-Module powershell-yaml -ErrorAction Stop
 }
