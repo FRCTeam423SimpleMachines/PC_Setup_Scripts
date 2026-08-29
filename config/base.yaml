@@ -9,6 +9,6 @@ apps:
 
 # Firefox Enterprise policy: force-install uBlock Origin as a managed extension.
 firefoxPolicies:
-  extensionId: uBlock0@raymondhill.net
-  installUrl: https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi
-  installationMode: force_installed
+  extensionId: "uBlock0@raymondhill.net"
+  installUrl: "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+  installationMode: "force_installed"

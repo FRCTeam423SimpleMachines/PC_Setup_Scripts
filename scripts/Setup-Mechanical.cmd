@@ -8,10 +8,12 @@ if %errorLevel% == 0 (
 )
 
 echo Requesting Administrator privileges...
-powershell -Command "Start-Process cmd -Verb RunAs -ArgumentList '/c cd /d \"%~dp0\" && \"%~f0\" elevated'"
+powershell -Command "Start-Process '%~f0' -Verb RunAs -ArgumentList 'elevated'"
 exit /b
 
 :run_script
+cd /d "%~dp0"
+
 echo.
 echo ===============================================
 echo FRC Mechanical/CAD Team Setup
